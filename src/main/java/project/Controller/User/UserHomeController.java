@@ -11,7 +11,7 @@ public class UserHomeController
 {
 
     @GetMapping("/user/home")
-    public String index(Model model, HttpSession session)
+    public String index(HttpSession session)
     {
 
         //not logged in, return home..
@@ -23,8 +23,17 @@ public class UserHomeController
         }
 
         //do logic for home here...
-
         return "user/home";
+
+    }
+
+    @GetMapping("/user/logout")
+    public String logOut(HttpSession session)
+    {
+
+        session.removeAttribute("user_id");
+
+        return "redirect:/";
 
     }
 

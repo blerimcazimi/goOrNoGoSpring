@@ -58,6 +58,11 @@
         </dependency>
 
         <dependency>
+            <groupid>org.springframework.boot</groupid>
+            <artifactid>spring-boot-devtools</artifactid>
+        </dependency>
+
+        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>3.3.7</version>
