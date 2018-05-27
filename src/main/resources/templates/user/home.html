@@ -298,7 +298,7 @@
 
                 <img class="avatar" src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.0-1/p320x320/22688788_940261516125047_7704999875201936803_n.jpg?_nc_cat=0&oh=de523ad4c19104c01c9a2a02c5367455&oe=5B81AA0A">
 
-                Min profil
+                My profile
 
             </div>
 
@@ -309,13 +309,12 @@
                     <li class="list-group-item openPage active" pageToOpen="homePage"><span class="ti ti-thumb-up"></span> <span class="t"></span>
                         Go Or No Go</li>
 
-                    <li class="list-group-item openPage" pageToOpen="notificationsPage"><span class="ti ti-world"></span> <span class="t"></span>
-                        Notifikationer</li>
+                    <li class="list-group-item openPage" pageToOpen="statisticsPage"><span class="ti ti-world"></span> <span class="t"></span> Statistics</li>
 
                     <li class="list-group-item openPage" pageToOpen="uploadPage"><span class="ti ti-upload"></span> <span class="t"></span> Upload</li>
 
                     <li class="list-group-item openPage" pageToOpen="signOutPage"><span class="ti ti-unlock"></span>
-                        <span class="t"></span> Log ud</li>
+                        <span class="t"></span> Sign out</li>
 
                 </ul>
 
@@ -337,6 +336,33 @@
             {
 
                 window.location.href="/user/logout";
+
+            }
+
+            if(pageToOpen === "statisticsPage")
+            {
+
+
+                $("#listOfUploadedImages").html('');
+
+                $.getJSON( "/api/user/post/1", function( data )
+                {
+
+                    $.each( data, function( key, val )
+                    {
+
+                        var r = Math.floor((Math.random() * 20) + 1);
+
+                        var t = Math.floor((Math.random() * 7) + 1);
+
+                        $("#listOfUploadedImages").append('<div class="col-lg-3"> <img src="/uploadedfiles/' + val.image_path +
+                            '" class="full-w"> ' + r + ' · Gos<br> ' + t + ' · No Gos </div>');
+
+                    });
+
+
+                });
+
 
             }
 
@@ -389,8 +415,30 @@
         </div>
         <!-- end of home page -->
 
-        <!-- notifications page -->
-        <div class="notificationsPage page">
+        <!-- statistics page -->
+        <div class="statisticsPage page">
+
+
+            <div class="beauty-box">
+
+                <div align="center">
+                    <h1>Statistics</h1>
+                    <hr>
+                </div>
+
+                <div class="row">
+
+                    <div id="listOfUploadedImages"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- upload page -->
+        <div class="uploadPage page">
 
             <style>
                 .beauty-box
@@ -420,15 +468,15 @@
 
                 <!-- form -->
 
-                <form>
+                <form method="post" action="/upload" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="file">Vælg billede</label>
+                        <label for="file">Choose image</label>
                         <input type="file" class="form-control"
-                               id="file" aria-describedby="emailHelp" placeholder="Enter email">
+                               id="file" name="file" placeholder="Enter email">
                     </div>
 
                     <div class="form-group">
-                        <label for="file">Dit spørgsmål</label>
+                        <label for="file">Question</label>
                         <textarea name="question" class="form-control"></textarea>
                     </div>
 
@@ -437,13 +485,6 @@
 
 
             </div>
-
-        </div>
-
-
-        <!-- upload page -->
-        <div class="uploadPage page">
-
 
         </div>
 
@@ -475,6 +516,7 @@
         $.post( "/api/user/image/likeOrDislike?image_id=" + post_id + "&likeOrDislike=" + type)
         .done(function( data )
         {
+            //successful....
             console.log(data);
         });
 
@@ -495,9 +537,7 @@
             $.each( data, function( key, val ) {
                 console.log(val);
 
-                $(".tinder--cards").append('<div class="tinder--card" post_id="30"> <img ' +
-                    '' +
-                    'src="https://scontent.fcph2-1.fna.fbcdn.net/v/t1.0-9/15420979_717908415025986_1766483365492221789_n.jpg?_nc_cat=0&oh=2d702ee79e480d3624813b14f979f6a0&oe=5B79276E"> <p>' + val.question + '</p> <hr> </div>')
+                $(".tinder--cards").append('<div class="tinder--card" post_id="' + val.id + '"> <img src="/uploadedfiles/' + val.image_path + '"> <p>' + val.question + '</p> <hr> </div>')
             });
 
             tinderContainer = document.querySelector('.tinder');

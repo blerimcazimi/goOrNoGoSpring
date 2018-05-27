@@ -10,6 +10,7 @@ import project.Repository.PostRepositoryCrud;
 
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Controller
 @Table(name = "posts") // set table name, we're going to use.
@@ -55,6 +56,23 @@ public class PostControllerAPI
     {
 
         return postRepositoryCrud.findAll();
+
+    }
+
+
+    /**
+     *
+     * Gets posts where the user id equals to parameter.
+     *
+     * @param user_id
+     * @return
+     */
+    @GetMapping(path="/api/user/post/{user_id}")
+    public @ResponseBody
+    Iterable<Post> getPostsWhereUserID(@PathVariable("user_id") int user_id)
+    {
+
+        return postRepositoryCrud.findByUserid(user_id);
 
     }
 

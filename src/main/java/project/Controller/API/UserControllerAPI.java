@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import project.Controller.API.Facebook.FacebookGraph;
+import project.Model.Post;
 import project.Model.User;
+import project.Repository.PostRepositoryCrud;
 import project.Repository.UserRepositoryCrud;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,10 @@ public class UserControllerAPI
 
     @Autowired
     private UserRepositoryCrud userRepositoryCrud;
+
+
+    @Autowired
+    private PostRepositoryCrud postRepositoryCrud;
 
     /**
      *
@@ -31,7 +37,6 @@ public class UserControllerAPI
         return userRepositoryCrud.findAll();
 
     }
-
 
     /**
      *

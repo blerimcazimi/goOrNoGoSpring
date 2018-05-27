@@ -9,4 +9,6 @@ import project.Model.Post;
 public interface PostRepositoryCrud extends CrudRepository<Post, Long>
 {
 
+    public Iterable<Post> findByUserid(int userid);
+
 }

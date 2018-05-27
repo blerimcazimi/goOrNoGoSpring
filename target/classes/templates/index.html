@@ -37,6 +37,8 @@
         // for FB.getLoginStatus().
         if (response.status === 'connected') {
             // Logged into your app and Facebook.
+
+            console.log("gj!");
             testAPI();
         } else {
             // The person is not logged into your app or we are unable to tell.
@@ -53,13 +55,17 @@
             statusChangeCallback(response);
 
 
+            alert(30);
+
             if(response.status === "connected")
             {
 
                 //console.log(response.authResponse.accessToken);
 
+                alert(10);
 
-                $.post( "api/user/login", { token: response.authResponse.accessToken })
+
+                $.post( "/api/user/login", { token: response.authResponse.accessToken })
                     .done(function( data )
                     {
 
@@ -243,7 +249,7 @@ h1
         <div class="col-lg-5">
 
             <br><br><br>
-            <h1>Del billeder anonymt.<br> Lad andre bedømme, <br>om de er Go eller No Go.</h1><br>
+            <h1>Share pictures, ask questions. Let other judge, if they are Go Or No Go.</h1><br>
 
             <div align="center">
 
