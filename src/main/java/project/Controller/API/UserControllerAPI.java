@@ -1,5 +1,7 @@
 package project.Controller.API;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +21,7 @@ public class UserControllerAPI
     @Autowired
     private UserRepositoryCrud userRepositoryCrud;
 
-
-    @Autowired
-    private PostRepositoryCrud postRepositoryCrud;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      *
@@ -71,6 +71,8 @@ public class UserControllerAPI
     public @ResponseBody String login(@RequestParam("token") String token, HttpSession session)
     {
 
+        log.info("Trying to login to the website with facebook login...");
+
         //establish connection with fb graph..
         FacebookGraph facebookGraph = new FacebookGraph();
         String facebook_id = facebookGraph.getFacebookIDByAccessToken(token);
@@ -81,6 +83,8 @@ public class UserControllerAPI
         //user does not exist. Create it.
         if(!userRepositoryCrud.existsByFacebook(facebook_id))
         {
+
+            log.info("Creating user to the db as the fb id " + facebook_id + " is not registered to the db...");
 
             //set data and save..
             User user = new User();
@@ -95,12 +99,19 @@ public class UserControllerAPI
             //fb id exists, get user_id
         } else {
 
+            log.info(facebook_id + " exists in the db.. doing logging in..");
+
+
             user_id = userRepositoryCrud.findByFacebook(facebook_id).getID();
 
         }
 
+        log.info("Setting user session...");
+
         //set session by user id (logged in now)...
         session.setAttribute("user_id", user_id);
+
+        log.info("Session set, all is good. User is logged in.");
 
         //everything went fine, return OK.
         return "OK";
