@@ -2,6 +2,8 @@ package project.Controller.API.Facebook;
 
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,11 +13,17 @@ import java.net.URLConnection;
 public class FacebookGraph
 {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
+
     public String getFacebookIDByAccessToken(String token)
     {
 
         String graph = null;
         String urlToBeCalled = "https://graph.facebook.com/me?access_token=" + token;
+
+        log.info("Getting facebook id by accesstoken...");
 
         try
         {
@@ -38,10 +46,14 @@ public class FacebookGraph
             //get fb id from response.
             String facebook_id = myResponse.getString("id");
 
+            log.info("Successfully retrieved the fb id, " + facebook_id);
+
             return facebook_id;
 
         } catch (Exception e)
         {
+
+            log.info("Error trying to get facebook-id " + e.getMessage());
 
             return "0";
 

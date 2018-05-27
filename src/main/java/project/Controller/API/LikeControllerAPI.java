@@ -15,10 +15,13 @@ import javax.servlet.http.HttpSession;
 public class LikeControllerAPI
 {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
+
+
     @Autowired
     private LikeOrDislikeRepositoryCrud likeOrDislikeRepositoryCrud;
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping(path="/api/user/image/likeOrDislike")
     public @ResponseBody String likeOrDislikeImage(HttpSession session, @RequestParam("image_id") int image_id,

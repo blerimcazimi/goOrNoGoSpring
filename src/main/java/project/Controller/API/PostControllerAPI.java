@@ -1,5 +1,7 @@
 package project.Controller.API;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,11 @@ import java.util.HashMap;
 @Table(name = "posts") // set table name, we're going to use.
 public class PostControllerAPI
 {
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
+
 
     @Autowired
     private PostRepositoryCrud postRepositoryCrud;
@@ -55,6 +62,8 @@ public class PostControllerAPI
     public @ResponseBody Iterable<Post> getPosts()
     {
 
+        log.info("Getting all posts...");
+
         return postRepositoryCrud.findAll();
 
     }
@@ -70,6 +79,8 @@ public class PostControllerAPI
     public @ResponseBody
     Iterable<Post> getPostsWhereUserID(@PathVariable("user_id") int user_id)
     {
+
+        log.info("Getting all posts where the user id is " + user_id);
 
         return postRepositoryCrud.findByUserid(user_id);
 

@@ -26,6 +26,7 @@ public class HomeController
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    
     @GetMapping("/")
     public String index(HttpSession session)
     {

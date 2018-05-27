@@ -18,10 +18,13 @@ import java.util.HashMap;
 public class UserControllerAPI
 {
 
-    @Autowired
-    private UserRepositoryCrud userRepositoryCrud;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
+
+    @Autowired
+    private UserRepositoryCrud userRepositoryCrud;
 
     /**
      *
@@ -30,14 +33,13 @@ public class UserControllerAPI
      *
      */
     @GetMapping(path="/api/user/all")
-    public @ResponseBody
-    Iterable<User> getAllUsers()
+    public @ResponseBody Iterable<User> getAllUsers()
     {
 
         return userRepositoryCrud.findAll();
 
     }
-    
+
     /**
      *
      * Logins the user with FB - if the user does not exists it will be created.

@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Post
 {
 
+    //key hibernate
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

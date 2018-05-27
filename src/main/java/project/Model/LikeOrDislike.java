@@ -7,6 +7,8 @@ import javax.persistence.*;
 public class LikeOrDislike
 {
 
+
+    //primary key hibernate
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
