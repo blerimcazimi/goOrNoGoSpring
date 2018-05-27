@@ -59,7 +59,6 @@ public class PostControllerAPI
 
     }
 
-
     /**
      *
      * Gets posts where the user id equals to parameter.

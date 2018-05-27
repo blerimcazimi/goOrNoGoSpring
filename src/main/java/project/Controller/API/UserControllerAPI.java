@@ -37,27 +37,7 @@ public class UserControllerAPI
         return userRepositoryCrud.findAll();
 
     }
-
-    /**
-     *
-     * Get a single user.
-     *
-     * @return
-     */
-    @GetMapping(value = "/api/user")
-    public @ResponseBody HashMap<String, String> findUserByID()
-    {
-
-        //put data into hashmap..
-        HashMap<String, String> userData = new HashMap<String, String>();
-
-        userData.put("id", Integer.toString(10));
-
-        //return data...
-        return userData;
-
-    }
-
+    
     /**
      *
      * Logins the user with FB - if the user does not exists it will be created.
