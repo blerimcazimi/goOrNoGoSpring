@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 public class UserHomeController
 {
 
+    //using AOP
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/user/home")

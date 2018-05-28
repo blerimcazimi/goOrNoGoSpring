@@ -19,11 +19,11 @@ import java.util.HashMap;
 public class PostControllerAPI
 {
 
+    //using AOP
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
-
-
+    //dependency injection...
     @Autowired
     private PostRepositoryCrud postRepositoryCrud;
 
@@ -39,14 +39,17 @@ public class PostControllerAPI
     public @ResponseBody String createPost(HttpSession session, @RequestParam("image_id") int image_id)
     {
 
+        //model obj.
         Post postObj = new Post();
 
+        //set all variabels for db-table
         postObj.setImage_path("test");
 
         postObj.setUserid((Integer)session.getAttribute("user_id"));
 
         postObj.setQuestion("Synes I jeg skal købe den her bil i blå farve?");
 
+        //store
         postRepositoryCrud.save(postObj);
 
         return "OK";

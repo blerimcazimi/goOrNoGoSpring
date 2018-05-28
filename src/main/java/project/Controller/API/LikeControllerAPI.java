@@ -15,11 +15,10 @@ import javax.servlet.http.HttpSession;
 public class LikeControllerAPI
 {
 
+    //using AOP
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-
-
-
+    //dependency injection
     @Autowired
     private LikeOrDislikeRepositoryCrud likeOrDislikeRepositoryCrud;
 
@@ -28,7 +27,7 @@ public class LikeControllerAPI
                                                    @RequestParam("likeOrDislike") int likeOrDislike)
     {
 
-        log.info("Trying to like post " + image_id);
+        log.info("Method start: Trying to like post " + image_id);
 
         //login is required..
         if(session.getAttribute("user_id") == null)
@@ -50,7 +49,7 @@ public class LikeControllerAPI
 
         likeOrDislikeRepositoryCrud.save(likeOrDislikeObj);
 
-        log.info("Like done.");
+        log.info("Method end: Like done.");
 
         return "OK";
 

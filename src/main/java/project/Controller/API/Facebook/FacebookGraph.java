@@ -13,10 +13,15 @@ import java.net.URLConnection;
 public class FacebookGraph
 {
 
+    //AOP
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
-
+    /**
+     * 
+     * @param token
+     * @return
+     */
     public String getFacebookIDByAccessToken(String token)
     {
 

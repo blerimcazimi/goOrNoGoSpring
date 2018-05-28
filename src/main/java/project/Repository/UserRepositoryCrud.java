@@ -8,12 +8,22 @@ import project.Model.User;
 
 import javax.persistence.Table;
 
+
+/**
+ *
+ * CrudRepository
+ *
+ *
+ * Create, read, delete, update
+ *
+ *
+ */
+
 @Repository
-@Table(name = "users") // set table name, we're going to use.
 public interface UserRepositoryCrud extends CrudRepository<User, Long>
 {
 
-    public User findByFacebook(String facebook);
+    User findByFacebook(String facebook);
 
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM User c WHERE c.facebook = :facebookID")
     boolean existsByFacebook(@Param("facebookID") String facebookID);

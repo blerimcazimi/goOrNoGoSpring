@@ -25,11 +25,10 @@ public class UploadController
     //Save the uploaded file to this folder
     private String UPLOADED_FOLDER = "/Applications/goOrNoGoSpring/src/main/resources/static/uploadedfiles/";
 
-    //logger aspect...
+    //using AOP
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    //post crud
-
+    //dependency injection
     @Autowired
     PostRepositoryCrud postRepositoryCrud;
 

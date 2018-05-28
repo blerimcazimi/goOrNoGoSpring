@@ -24,9 +24,9 @@ import javax.servlet.http.HttpSession;
 public class HomeController
 {
 
+    //using AOP
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    
     @GetMapping("/")
     public String index(HttpSession session)
     {

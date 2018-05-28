@@ -22,7 +22,7 @@ public class UserControllerAPI
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
-
+    //dependency injection, this class depends on userRepositoryCrud
     @Autowired
     private UserRepositoryCrud userRepositoryCrud;
 
@@ -53,10 +53,12 @@ public class UserControllerAPI
     public @ResponseBody String login(@RequestParam("token") String token, HttpSession session)
     {
 
-        log.info("Trying to login to the website with facebook login...");
+        log.info("Method start: Trying to login to the website with facebook login...");
 
         //establish connection with fb graph..
         FacebookGraph facebookGraph = new FacebookGraph();
+
+        //returns facebook id by the token..
         String facebook_id = facebookGraph.getFacebookIDByAccessToken(token);
 
         //user id
@@ -72,8 +74,10 @@ public class UserControllerAPI
             User user = new User();
             user.setFacebook(facebook_id);
 
-            //save data..
+            //save data, user is created.
             userRepositoryCrud.save(user);
+
+            log.info("User created...");
 
             //registration done, set user id...
             user_id = user.getID();
@@ -83,7 +87,7 @@ public class UserControllerAPI
 
             log.info(facebook_id + " exists in the db.. doing logging in..");
 
-
+            //get user id by facebook_id
             user_id = userRepositoryCrud.findByFacebook(facebook_id).getID();
 
         }
@@ -93,7 +97,7 @@ public class UserControllerAPI
         //set session by user id (logged in now)...
         session.setAttribute("user_id", user_id);
 
-        log.info("Session set, all is good. User is logged in.");
+        log.info("Method end: Session set, all is good. User is logged in.");
 
         //everything went fine, return OK.
         return "OK";
